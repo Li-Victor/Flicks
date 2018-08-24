@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		574BDEA7212FB6920086AD05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDEA6212FB6920086AD05 /* AppDelegate.swift */; };
-		574BDEA9212FB6920086AD05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDEA8212FB6920086AD05 /* ViewController.swift */; };
 		574BDEAC212FB6920086AD05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 574BDEAA212FB6920086AD05 /* Main.storyboard */; };
 		574BDEAE212FB6940086AD05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 574BDEAD212FB6940086AD05 /* Assets.xcassets */; };
 		574BDEB1212FB6940086AD05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 574BDEAF212FB6940086AD05 /* LaunchScreen.storyboard */; };
+		57CAEC62212FD02100ADFB4E /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CAEC61212FD02100ADFB4E /* NowPlayingViewController.swift */; };
+		57CAEC64212FD10700ADFB4E /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CAEC63212FD10700ADFB4E /* APIKeys.swift */; };
+		57CAEC66212FD26E00ADFB4E /* APIKeysSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CAEC65212FD26E00ADFB4E /* APIKeysSample.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		574BDEA3212FB6920086AD05 /* Flicks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flicks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		574BDEA6212FB6920086AD05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		574BDEA8212FB6920086AD05 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		574BDEAB212FB6920086AD05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		574BDEAD212FB6940086AD05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		574BDEB0212FB6940086AD05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		574BDEB2212FB6940086AD05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		57CAEC61212FD02100ADFB4E /* NowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
+		57CAEC63212FD10700ADFB4E /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
+		57CAEC65212FD26E00ADFB4E /* APIKeysSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeysSample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,11 +59,13 @@
 			isa = PBXGroup;
 			children = (
 				574BDEA6212FB6920086AD05 /* AppDelegate.swift */,
-				574BDEA8212FB6920086AD05 /* ViewController.swift */,
 				574BDEAA212FB6920086AD05 /* Main.storyboard */,
 				574BDEAD212FB6940086AD05 /* Assets.xcassets */,
 				574BDEAF212FB6940086AD05 /* LaunchScreen.storyboard */,
 				574BDEB2212FB6940086AD05 /* Info.plist */,
+				57CAEC61212FD02100ADFB4E /* NowPlayingViewController.swift */,
+				57CAEC63212FD10700ADFB4E /* APIKeys.swift */,
+				57CAEC65212FD26E00ADFB4E /* APIKeysSample.swift */,
 			);
 			path = Flicks;
 			sourceTree = "<group>";
@@ -135,7 +141,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				574BDEA9212FB6920086AD05 /* ViewController.swift in Sources */,
+				57CAEC64212FD10700ADFB4E /* APIKeys.swift in Sources */,
+				57CAEC62212FD02100ADFB4E /* NowPlayingViewController.swift in Sources */,
+				57CAEC66212FD26E00ADFB4E /* APIKeysSample.swift in Sources */,
 				574BDEA7212FB6920086AD05 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
