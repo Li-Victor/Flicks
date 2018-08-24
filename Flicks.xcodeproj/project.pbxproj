@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5730474F2130AE9900E22611 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5730474E2130AE9900E22611 /* MovieCell.swift */; };
 		574BDEA7212FB6920086AD05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574BDEA6212FB6920086AD05 /* AppDelegate.swift */; };
 		574BDEAC212FB6920086AD05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 574BDEAA212FB6920086AD05 /* Main.storyboard */; };
 		574BDEAE212FB6940086AD05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 574BDEAD212FB6940086AD05 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5730474E2130AE9900E22611 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		574BDEA3212FB6920086AD05 /* Flicks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flicks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		574BDEA6212FB6920086AD05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		574BDEAB212FB6920086AD05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				57CAEC61212FD02100ADFB4E /* NowPlayingViewController.swift */,
 				57CAEC63212FD10700ADFB4E /* APIKeys.swift */,
 				57CAEC65212FD26E00ADFB4E /* APIKeysSample.swift */,
+				5730474E2130AE9900E22611 /* MovieCell.swift */,
 			);
 			path = Flicks;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 				57CAEC64212FD10700ADFB4E /* APIKeys.swift in Sources */,
 				57CAEC62212FD02100ADFB4E /* NowPlayingViewController.swift in Sources */,
 				57CAEC66212FD26E00ADFB4E /* APIKeysSample.swift in Sources */,
+				5730474F2130AE9900E22611 /* MovieCell.swift in Sources */,
 				574BDEA7212FB6920086AD05 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
