@@ -39,11 +39,12 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request) {
             (data, response, error) in
-            PKHUD.sharedHUD.hide(afterDelay: 0.15)
             // This will run when the network request returns
             if let error = error {
                 print(error.localizedDescription)
+                self.displayError(error)
             } else if let data = data {
+                PKHUD.sharedHUD.hide(afterDelay: 0.15)
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let movies = dataDictionary["results"] as! [[String: Any]]
                 self.movies = movies
@@ -52,6 +53,17 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
             }
         }
         task.resume()
+    }
+    
+    func displayError(_ error: Error) {
+        let alertController = UIAlertController(title: "Cannot Get Movies", message: error.localizedDescription, preferredStyle: .alert)
+        
+        let TryAgainAction = UIAlertAction(title: "Try Again", style: .default) { (action) in
+            self.fetchMovies()
+        }
+        
+        alertController.addAction(TryAgainAction)
+        UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
