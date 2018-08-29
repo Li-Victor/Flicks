@@ -23,6 +23,13 @@ class MovieCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        if selected {
+            titleLabel.textColor = UIColor.white
+            overviewLabel.textColor = UIColor.white
+        } else {
+            titleLabel.textColor = UIColor.black
+            overviewLabel.textColor = UIColor.black
+        }
     }
 
 }

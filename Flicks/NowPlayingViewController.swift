@@ -91,6 +91,10 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
             radius: 0.0
         )
         
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.black
+        cell.selectedBackgroundView = backgroundView
+        
         cell.posterImageView.af_setImage(withURL: posterURL, placeholderImage: placeholderImage, filter: filter, imageTransition: .crossDissolve(0.2))
         return cell
     }
