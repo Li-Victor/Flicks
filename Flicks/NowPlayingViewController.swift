@@ -44,7 +44,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
                 print(error.localizedDescription)
                 self.displayError(error)
             } else if let data = data {
-                PKHUD.sharedHUD.hide(afterDelay: 0.15)
+                PKHUD.sharedHUD.hide(afterDelay: 0.10)
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let movies = dataDictionary["results"] as! [[String: Any]]
                 self.movies = movies
@@ -76,13 +76,16 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         let movie = movies[indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
+        let posterPathString = movie["poster_path"] as! String
         
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
         
-        let baseURLString = "https://image.tmdb.org/t/p/w500"
-        let posterPathString = movie["poster_path"] as! String
-        let posterURL = URL(string: baseURLString + posterPathString)!
+        let lowResURLString = "https://image.tmdb.org/t/p/w45"
+        let lowResPosterURL = URL(string: lowResURLString + posterPathString)!
+        
+        let highResURLString = "https://image.tmdb.org/t/p/original"
+        let highResPosterURL = URL(string: highResURLString + posterPathString)!
         
         let placeholderImage = UIImage(named: "reel_tabbar_icon")!
         
@@ -91,7 +94,10 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
             radius: 0.0
         )
         
-        cell.posterImageView.af_setImage(withURL: posterURL, placeholderImage: placeholderImage, filter: filter, imageTransition: .crossDissolve(0.2))
+        cell.posterImageView.af_setImage(withURL: lowResPosterURL, placeholderImage: placeholderImage, filter: filter, imageTransition: .crossDissolve(0.2),
+            completion: { (response) in
+                cell.posterImageView.af_setImage(withURL: highResPosterURL, filter: filter, imageTransition: .crossDissolve(0.2))
+        })
         return cell
     }
 
