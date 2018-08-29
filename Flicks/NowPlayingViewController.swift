@@ -10,10 +10,13 @@ import UIKit
 import AlamofireImage
 import PKHUD
 
-class NowPlayingViewController: UIViewController, UITableViewDataSource {
+class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
-    var movies: [[String: Any]] = []
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    var movies: [(title: String, overview: String, posterPath: String)] = []
+    var filteredMovies: [(title: String, overview: String, posterPath: String)] = []
     var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
@@ -24,6 +27,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         tableView.insertSubview(refreshControl, at: 0)
         
         self.tableView.dataSource = self
+        self.searchBar.delegate = self
         fetchMovies()
     }
     
@@ -46,8 +50,16 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
             } else if let data = data {
                 PKHUD.sharedHUD.hide(afterDelay: 0.10)
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                let movies = dataDictionary["results"] as! [[String: Any]]
-                self.movies = movies
+                let movieResults = dataDictionary["results"] as! [[String: Any]]
+                
+                self.movies = movieResults.map {
+                    let title = $0["title"] as! String
+                    let overview = $0["overview"] as! String
+                    let posterPath = $0["poster_path"] as! String
+                    return (title, overview, posterPath)
+                }
+                self.filteredMovies = self.movies
+                
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
             }
@@ -67,25 +79,22 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return filteredMovies.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         
-        let movie = movies[indexPath.row]
-        let title = movie["title"] as! String
-        let overview = movie["overview"] as! String
-        let posterPathString = movie["poster_path"] as! String
+        let (title, overview, posterPath) = filteredMovies[indexPath.row]
         
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
         
         let lowResURLString = "https://image.tmdb.org/t/p/w45"
-        let lowResPosterURL = URL(string: lowResURLString + posterPathString)!
+        let lowResPosterURL = URL(string: lowResURLString + posterPath)!
         
         let highResURLString = "https://image.tmdb.org/t/p/original"
-        let highResPosterURL = URL(string: highResURLString + posterPathString)!
+        let highResPosterURL = URL(string: highResURLString + posterPath)!
         
         let placeholderImage = UIImage(named: "reel_tabbar_icon")!
         
@@ -105,6 +114,27 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         
         return cell
     }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.filteredMovies = searchText.isEmpty ? self.movies : self.movies.filter {
+            let title = $0.title
+            return title.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+        }
+        self.tableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = false
+        self.searchBar.text = ""
+        self.searchBar.resignFirstResponder()
+        self.filteredMovies = self.movies
+        self.tableView.reloadData()
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
