@@ -8,7 +8,8 @@
 
 import Foundation
 
-// make sure to change enum name to APIKeys
+// create a new file called APIKeys.swift and copy this file
+// make sure to change enum name to APIKeys with your real API keys
 enum APIKeysSample: String {
     case MOVIE_DATABASE = ""
 }
