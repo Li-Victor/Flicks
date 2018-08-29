@@ -83,8 +83,9 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         let baseURLString = "https://image.tmdb.org/t/p/w500"
         let posterPathString = movie["poster_path"] as! String
         
+        let placeholderImage = UIImage(named: "reel_tabbar_icon")!
         let posterURL = URL(string: baseURLString + posterPathString)!
-        cell.posterImageView.af_setImage(withURL: posterURL)
+        cell.posterImageView.af_setImage(withURL: posterURL, placeholderImage: placeholderImage)
         return cell
     }
 
