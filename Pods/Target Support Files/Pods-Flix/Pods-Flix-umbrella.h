@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_FlicksVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_FlicksVersionString[];
+FOUNDATION_EXPORT double Pods_FlixVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_FlixVersionString[];
 
