@@ -121,6 +121,10 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
             return title.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
         }
         self.tableView.reloadData()
+        if self.filteredMovies.count > 0 {
+            tableView.scrollToRow(at: IndexPath(indexes: [0, 0]), at: .bottom, animated: true)
+        }
+        
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -135,6 +139,9 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         self.tableView.reloadData()
     }
 
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
