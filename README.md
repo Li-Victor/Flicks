@@ -1,8 +1,8 @@
-# Project 1 - Flicks
+# Project 1 - Flix
 
-Flicks is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+Flix is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: 3 hours spent in total
+Time spent: 7 hours spent in total
 
 ## User Stories
 
@@ -15,12 +15,12 @@ The following **required** user stories are complete:
 
 The following **stretch** user stories are implemented:
 
-- [ ] User sees an alert when there's a networking error (+1pt)
-- [ ] User can search for a movie (+3pt)
-- [ ] While poster is being fetched, user see's a placeholder image (+1pt)
-- [ ] User sees image transition for images coming from network, not when it is loaded from cache (+1pt)
-- [ ] Customize the selection effect of the cell (+1pt)
-- [ ] For the large poster, load the low resolution image first and then switch to the high resolution image when complete (+2pt)
+- [x] User sees an alert when there's a networking error (+1pt)
+- [x] User can search for a movie (+3pt)
+- [x] While poster is being fetched, user see's a placeholder image (+1pt)
+- [x] User sees image transition for images coming from network, not when it is loaded from cache (+1pt)
+- [x] Customize the selection effect of the cell (+1pt)
+- [x] For the large poster, load the low resolution image first and then switch to the high resolution image when complete (+2pt)
 
 The following **additional** user stories are implemented:
 
@@ -28,20 +28,26 @@ The following **additional** user stories are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. For the movies instance variable I decided to use an array of tuples containing the movie title, overview, and poster path [(title: String, overview: String, posterPath: String)], instead of using an array of dictionary [[String: Any]] because these are the only values from the response that are used in this application. This allows me to only do casting when fetching data, and not do casting whenever I need the movies variable.
+2. Swift provides helpful array methods for traversing an array, such as filter and map. Array.filter() returns a new array of the elements that satisfy a certain condition. Array.map() returns an array containing the results of the mapping.
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![](https://github.com/Li-Victor/Flix/blob/master/1.gif)
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+![](https://github.com/Li-Victor/Flix/blob/master/2.gif)
+
+![](https://github.com/Li-Victor/Flix/blob/master/3.gif)
+
+GIF created with [Giphy Capture](https://giphy.com/apps/giphycapture).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Loading a low resolution image first and then switching to a higher resolution image when complete was difficult task, as I didn't understand the guides. Then, I researched and found that AlamoFire setImage function has a completion closure, that runs after the image has been set. After the low resolution image was completed, the higher resolution image is set on the same cell.
+
+Renaming a XCode project takes a ton of steps. Have a good name for a project, so you would not have to rename it.
 
 ## License
 
