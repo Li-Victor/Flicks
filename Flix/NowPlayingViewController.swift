@@ -96,7 +96,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         let highResURLString = "https://image.tmdb.org/t/p/original"
         let highResPosterURL = URL(string: highResURLString + posterPath)!
         
-        let placeholderImage = UIImage(named: "reel_tabbar_icon")!
+        let placeholderImage = UIImage(named: "iconmonstr-video")!
         
         let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
             size: cell.posterImageView.frame.size,
