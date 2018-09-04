@@ -11,12 +11,12 @@ import AlamofireImage
 import PKHUD
 
 class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var movies: [(title: String, overview: String, posterPath: String)] = []
-    var filteredMovies: [(title: String, overview: String, posterPath: String)] = []
+    var movies: [Movie] = []
+    var filteredMovies: [Movie] = []
     var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
@@ -55,8 +55,10 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
                 self.movies = movieResults.map {
                     let title = $0["title"] as! String
                     let overview = $0["overview"] as! String
-                    let posterPath = $0["poster_path"] as! String
-                    return (title, overview, posterPath)
+                    let releaseDate = $0["release_date"] as! String
+                    let posterImagePath = $0["poster_path"] as! String
+                    let backdropImagePath = $0["backdrop_path"] as! String
+                    return Movie(title: title, overview: overview, releaseDate: releaseDate, posterImagePath: posterImagePath, backdropImagePath: backdropImagePath)
                 }
                 self.filteredMovies = self.movies
                 
@@ -81,11 +83,14 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredMovies.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         
-        let (title, overview, posterPath) = filteredMovies[indexPath.row]
+        let movie = filteredMovies[indexPath.row]
+        let title = movie.title
+        let overview = movie.overview
+        let posterPath = movie.posterImagePath
         
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
@@ -108,8 +113,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         cell.selectedBackgroundView = backgroundView
         
         cell.posterImageView.af_setImage(withURL: lowResPosterURL, placeholderImage: placeholderImage, filter: filter, imageTransition: .crossDissolve(0.2),
-            completion: { (response) in
-                cell.posterImageView.af_setImage(withURL: highResPosterURL, filter: filter, imageTransition: .crossDissolve(0.2))
+                                         completion: { (response) in
+                                            cell.posterImageView.af_setImage(withURL: highResPosterURL, filter: filter, imageTransition: .crossDissolve(0.2))
         })
         
         return cell
@@ -138,14 +143,24 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         self.filteredMovies = self.movies
         self.tableView.reloadData()
     }
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.endEditing(true)
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        if let indexPath = tableView.indexPath(for: cell) {
+            let movie = movies[indexPath.row]
+            let detailViewController = segue.destination as! DetailViewController
+            detailViewController.movie = movie
+        }
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }
