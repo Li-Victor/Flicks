@@ -155,7 +155,6 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
             let detailViewController = segue.destination as! DetailViewController
             detailViewController.movie = movie
         }
-        
     }
     
     override func didReceiveMemoryWarning() {

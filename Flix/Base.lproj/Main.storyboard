@@ -110,7 +110,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Overview" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1B-0n-X8p">
-                                <rect key="frame" x="16" y="545" width="343" height="233"/>
+                                <rect key="frame" x="16" y="545" width="343" height="184"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -134,7 +134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YTv-ov-Snp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2756" y="118.22660098522168"/>
+            <point key="canvasLocation" x="2760.8000000000002" y="807.63546798029563"/>
         </scene>
         <!--Now Playing-->
         <scene sceneID="g1Y-jG-p2R">
@@ -174,7 +174,7 @@
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="118.22660098522168"/>
         </scene>
-        <!--Superhero View Controller-->
+        <!--Superhero-->
         <scene sceneID="YKb-4g-A2x">
             <objects>
                 <viewController id="Z9A-cB-NO0" customClass="SuperheroViewController" customModule="Flix" customModuleProvider="target" sceneMemberID="viewController">
@@ -209,6 +209,7 @@
                                         <size key="customSize" width="125" height="191"/>
                                         <connections>
                                             <outlet property="posterImageView" destination="9hh-Cf-ycp" id="Yzr-UY-Okl"/>
+                                            <segue destination="PdE-qY-AYh" kind="show" id="4Gj-ap-dxR"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -217,14 +218,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="uWK-zE-o3m"/>
                     </view>
-                    <navigationItem key="navigationItem" id="WWi-6f-b8V"/>
+                    <navigationItem key="navigationItem" title="Superhero" id="WWi-6f-b8V"/>
                     <connections>
                         <outlet property="collectionView" destination="REe-6y-o4y" id="6ad-ED-4N0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bMu-pd-P1u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1060" y="875.61576354679812"/>
+            <point key="canvasLocation" x="1082" y="876"/>
         </scene>
         <!--Superhero-->
         <scene sceneID="Ixq-yU-6x8">
@@ -250,4 +251,7 @@
         <image name="now_playing_tabbar_item" width="21" height="21"/>
         <image name="superhero_tabbar_item" width="21" height="23"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="4Gj-ap-dxR"/>
+    </inferredMetricsTieBreakers>
 </document>
