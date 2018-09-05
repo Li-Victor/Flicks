@@ -34,7 +34,8 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
     func fetchMovies() {
         //        PKHUD.sharedHUD.contentView = PKHUDProgressView()
         //        PKHUD.sharedHUD.show(onView: tableView)
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=" + APIKeys.MOVIE_DATABASE.rawValue)!
+        let wonderWomanID = 297762
+        let url = URL(string: "https://api.themoviedb.org/3/movie/\(wonderWomanID)/similar?api_key=\(APIKeys.MOVIE_DATABASE.rawValue)")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request) {
