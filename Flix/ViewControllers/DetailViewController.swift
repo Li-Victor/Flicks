@@ -16,6 +16,11 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
     
+    @IBAction func didTapBackDropImage(_ sender: UITapGestureRecognizer) {
+        let location = sender.location(in: view)
+        print(location)
+    }
+    
     var movie: Movie?
     
     override func viewDidLoad() {
