@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AlamofireImage
+import PKHUD
 
 class SuperheroViewController: UIViewController, UICollectionViewDataSource {
     
@@ -20,6 +22,10 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
         
         collectionView.dataSource = self
         
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(NowPlayingViewController.didPullToRefresh(_:)), for: .valueChanged)
+        collectionView.insertSubview(refreshControl, at: 0)
+        
         let layout  = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = layout.minimumInteritemSpacing
@@ -31,9 +37,13 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
         fetchMovies()
     }
     
+    @objc func didPullToRefresh(_ refreshControl: UIRefreshControl) {
+        fetchMovies()
+    }
+    
     func fetchMovies() {
-        //        PKHUD.sharedHUD.contentView = PKHUDProgressView()
-        //        PKHUD.sharedHUD.show(onView: tableView)
+        PKHUD.sharedHUD.contentView = PKHUDProgressView()
+        PKHUD.sharedHUD.show(onView: collectionView)
         let wonderWomanID = 297762
         let url = URL(string: "https://api.themoviedb.org/3/movie/\(wonderWomanID)/similar?api_key=\(APIKeys.MOVIE_DATABASE.rawValue)")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
@@ -45,7 +55,7 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
                 print(error.localizedDescription)
                 self.displayError(error)
             } else if let data = data {
-                // PKHUD.sharedHUD.hide(afterDelay: 0.10)
+                PKHUD.sharedHUD.hide(afterDelay: 0.10)
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let movieResults = dataDictionary["results"] as! [[String: Any]]
                 
@@ -59,7 +69,7 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
                 }
                 
                 self.collectionView.reloadData()
-                // self.refreshControl.endRefreshing()
+                self.refreshControl.endRefreshing()
             }
         }
         task.resume()
@@ -84,9 +94,24 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PosterCell", for: indexPath) as! PosterCell
         let movie = movies[indexPath.item]
         let posterPathString = movie.posterImagePath
-        let baseURLString = "https://image.tmdb.org/t/p/w500"
-        let posterURL = URL(string: baseURLString + posterPathString)!
-        cell.posterImageView.af_setImage(withURL: posterURL)
+        
+        let lowResURLString = "https://image.tmdb.org/t/p/w45"
+        let lowResPosterURL = URL(string: lowResURLString + posterPathString)!
+        
+        let highResURLString = "https://image.tmdb.org/t/p/original"
+        let highResPosterURL = URL(string: highResURLString + posterPathString)!
+        
+        let placeholderImage = UIImage(named: "iconmonstr-video")!
+        
+        let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
+            size: cell.posterImageView.frame.size,
+            radius: 0.0
+        )
+        
+        cell.posterImageView.af_setImage(withURL: lowResPosterURL, placeholderImage: placeholderImage, filter: filter, imageTransition: .crossDissolve(0.2), completion: {(response) in
+            
+            cell.posterImageView.af_setImage(withURL: highResPosterURL, filter: filter, imageTransition: .crossDissolve(0.2))
+        })
         return cell
     }
     
