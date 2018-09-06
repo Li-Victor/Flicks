@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57130F4E2140B7A200679754 /* TrailerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57130F4D2140B7A200679754 /* TrailerController.swift */; };
 		572ED559213F1E5E00177CBB /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572ED558213F1E5E00177CBB /* Movie.swift */; };
 		572ED55B213F39B700177CBB /* PosterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572ED55A213F39B700177CBB /* PosterCell.swift */; };
 		572ED55D213F3A5D00177CBB /* SuperheroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572ED55C213F3A5D00177CBB /* SuperheroViewController.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		26FC5D0D689CC7ACA11DF8D6 /* Pods_Flix.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flix.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		57130F4D2140B7A200679754 /* TrailerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerController.swift; sourceTree = "<group>"; };
 		572ED558213F1E5E00177CBB /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		572ED55A213F39B700177CBB /* PosterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterCell.swift; sourceTree = "<group>"; };
 		572ED55C213F3A5D00177CBB /* SuperheroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperheroViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				57CAEC61212FD02100ADFB4E /* NowPlayingViewController.swift */,
 				5761F34D213E5E42001C5FCB /* DetailViewController.swift */,
 				572ED55C213F3A5D00177CBB /* SuperheroViewController.swift */,
+				57130F4D2140B7A200679754 /* TrailerController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				572ED55B213F39B700177CBB /* PosterCell.swift in Sources */,
 				572ED559213F1E5E00177CBB /* Movie.swift in Sources */,
 				572ED55D213F3A5D00177CBB /* SuperheroViewController.swift in Sources */,
+				57130F4E2140B7A200679754 /* TrailerController.swift in Sources */,
 				57CAEC62212FD02100ADFB4E /* NowPlayingViewController.swift in Sources */,
 				57677DB02136FB4A00E47C21 /* APIKeys.swift in Sources */,
 				57CAEC66212FD26E00ADFB4E /* APIKeysSample.swift in Sources */,

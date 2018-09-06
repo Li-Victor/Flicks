@@ -17,8 +17,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var overviewLabel: UILabel!
     
     @IBAction func didTapBackDropImage(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: view)
-        print(location)
+        performSegue(withIdentifier: "SegueToVideo", sender: nil)
     }
     
     var movie: Movie?
@@ -43,6 +42,15 @@ class DetailViewController: UIViewController {
             posterImageView.af_setImage(withURL: posterPathURL)
         }
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let trailerController = segue.destination as! TrailerController
+        
+        if let movie = movie {
+            trailerController.youtubeURL = movie.title
+        }
     }
 
     override func didReceiveMemoryWarning() {

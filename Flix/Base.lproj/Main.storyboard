@@ -134,6 +134,7 @@
                         <outlet property="posterImageView" destination="FQZ-hl-fxf" id="e6O-Oe-cUv"/>
                         <outlet property="releaseDateLabel" destination="2Vd-gX-pwY" id="hMQ-o5-azb"/>
                         <outlet property="titleLabel" destination="X54-o5-Z0n" id="Fzj-To-9yn"/>
+                        <segue destination="SZZ-fn-pKI" kind="presentation" identifier="SegueToVideo" modalTransitionStyle="flipHorizontal" id="cn1-r6-NMS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YTv-ov-Snp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -143,7 +144,34 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2760.8000000000002" y="807.63546798029563"/>
+            <point key="canvasLocation" x="2793" y="685"/>
+        </scene>
+        <!--Trailer Controller-->
+        <scene sceneID="fH1-xG-U6Y">
+            <objects>
+                <viewController id="SZZ-fn-pKI" customClass="TrailerController" customModule="Flix" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="R0v-E7-iYm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This will be presented" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="enO-sd-00N">
+                                <rect key="frame" x="91" y="299" width="167" height="74"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="vu4-19-VQj"/>
+                    </view>
+                    <connections>
+                        <outlet property="dataLabel" destination="enO-sd-00N" id="0lY-aJ-6CW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4dw-Zx-h9M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3624.8000000000002" y="684.23645320197045"/>
         </scene>
         <!--Now Playing-->
         <scene sceneID="g1Y-jG-p2R">
