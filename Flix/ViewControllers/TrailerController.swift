@@ -11,7 +11,7 @@ import WebKit
 
 class TrailerController: UIViewController, WKUIDelegate {
     
-    @IBOutlet weak var webView: WKWebView!
+    @IBOutlet private weak var webView: WKWebView!
     
     var movieID: Int!
     

@@ -10,13 +10,13 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet weak var backDropImageView: UIImageView!
-    @IBOutlet weak var posterImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var releaseDateLabel: UILabel!
-    @IBOutlet weak var overviewLabel: UILabel!
+    @IBOutlet private weak var backDropImageView: UIImageView!
+    @IBOutlet private weak var posterImageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var releaseDateLabel: UILabel!
+    @IBOutlet private weak var overviewLabel: UILabel!
     
-    @IBAction func didTapBackDropImage(_ sender: UITapGestureRecognizer) {
+    @IBAction private func didTapBackDropImage(_ sender: UITapGestureRecognizer) {
         performSegue(withIdentifier: "SegueToVideo", sender: nil)
     }
     

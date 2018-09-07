@@ -12,10 +12,10 @@ import PKHUD
 
 class SuperheroViewController: UIViewController, UICollectionViewDataSource {
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
     
-    var movies: [Movie] = []
-    var refreshControl: UIRefreshControl!
+    private var movies: [Movie] = []
+    private var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +23,7 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
         collectionView.dataSource = self
         
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(NowPlayingViewController.didPullToRefresh(_:)), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(didPullToRefresh(_:)), for: .valueChanged)
         collectionView.insertSubview(refreshControl, at: 0)
         
         let layout  = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
@@ -37,11 +37,11 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
         fetchMovies()
     }
     
-    @objc func didPullToRefresh(_ refreshControl: UIRefreshControl) {
+    @objc private func didPullToRefresh(_ refreshControl: UIRefreshControl) {
         fetchMovies()
     }
     
-    func fetchMovies() {
+    private func fetchMovies() {
         PKHUD.sharedHUD.contentView = PKHUDProgressView()
         PKHUD.sharedHUD.show(onView: collectionView)
         let wonderWomanID = 297762
@@ -76,7 +76,7 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
         task.resume()
     }
     
-    func displayError(_ error: Error) {
+    private func displayError(_ error: Error) {
         let alertController = UIAlertController(title: "Cannot Get Movies", message: error.localizedDescription, preferredStyle: .alert)
         
         let TryAgainAction = UIAlertAction(title: "Try Again", style: .default) { (action) in

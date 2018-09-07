@@ -12,12 +12,12 @@ import PKHUD
 
 class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var searchBar: UISearchBar!
     
-    var movies: [Movie] = []
-    var filteredMovies: [Movie] = []
-    var refreshControl: UIRefreshControl!
+    private var movies: [Movie] = []
+    private var filteredMovies: [Movie] = []
+    private var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +31,11 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         fetchMovies()
     }
     
-    @objc func didPullToRefresh(_ refreshControl: UIRefreshControl) {
+    @objc private func didPullToRefresh(_ refreshControl: UIRefreshControl) {
         fetchMovies()
     }
     
-    func fetchMovies() {
+    private func fetchMovies() {
         PKHUD.sharedHUD.contentView = PKHUDProgressView()
         PKHUD.sharedHUD.show(onView: tableView)
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(APIKeys.MOVIE_DATABASE.rawValue)")!
@@ -70,7 +70,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         task.resume()
     }
     
-    func displayError(_ error: Error) {
+    private func displayError(_ error: Error) {
         let alertController = UIAlertController(title: "Cannot Get Movies", message: error.localizedDescription, preferredStyle: .alert)
         
         let TryAgainAction = UIAlertAction(title: "Try Again", style: .default) { (action) in
