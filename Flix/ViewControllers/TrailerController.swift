@@ -15,13 +15,6 @@ class TrailerController: UIViewController, WKUIDelegate {
     
     var movieID: Int!
     
-    override func loadView() {
-        let webConfiguration = WKWebViewConfiguration()
-        webView = WKWebView(frame: .zero, configuration: webConfiguration)
-        webView.uiDelegate = self
-        view = webView
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,4 +41,7 @@ class TrailerController: UIViewController, WKUIDelegate {
         task.resume()
     }
 
+    @IBAction func goBack(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
 }
