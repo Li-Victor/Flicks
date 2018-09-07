@@ -46,29 +46,9 @@ class DetailViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        print("hi")
-        if let id = movie?.movieId {
-            print("sss")
-            let url = URL(string: "https://api.themoviedb.org/3/movie/\(id)/videos?api_key=\(APIKeys.MOVIE_DATABASE.rawValue)")!
-            let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-            let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-            
-            let task = session.dataTask(with: request) {
-                (data, response, error) in
-                
-                if let data = data {
-                    let dictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                    
-                    let results = dictionary["results"] as! [[String: Any]]
-                    
-                    let key = results[0]["key"] as! String
-                    print(key)
-                    let trailerController = segue.destination as! TrailerController
-                    trailerController.youtubeKey = "MFWF9dU5Zc0"
-                }
-            }
-            task.resume()
-        }
+        let trailerController = segue.destination as! TrailerController
+        trailerController.movieID = movie!.movieId
+        
     }
 
     override func didReceiveMemoryWarning() {
