@@ -9,6 +9,7 @@
 import UIKit
 import AlamofireImage
 import PKHUD
+import SwiftyJSON
 
 class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
     
@@ -48,19 +49,20 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
                 print(error.localizedDescription)
                 self.displayError(error)
             } else if let data = data {
-                PKHUD.sharedHUD.hide(afterDelay: 0.10)
-                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                let movieResults = dataDictionary["results"] as! [[String: Any]]
                 
-                self.movies = movieResults.map {
-                    let title = $0["title"] as! String
-                    let overview = $0["overview"] as! String
-                    let releaseDate = $0["release_date"] as! String
-                    let posterImagePath = $0["poster_path"] as! String
-                    let backdropImagePath = $0["backdrop_path"] as! String
-                    let movieId = $0["id"] as! Int
+                let allMovieInfo = JSON(data)
+                
+                PKHUD.sharedHUD.hide(afterDelay: 0.10)
+                self.movies = allMovieInfo["results"].arrayValue.map {
+                    let title = $0["title"].stringValue
+                    let overview = $0["overview"].stringValue
+                    let releaseDate = $0["release_date"].stringValue
+                    let posterImagePath = $0["poster_path"].stringValue
+                    let backdropImagePath = $0["backdrop_path"].stringValue
+                    let movieId = $0["id"].intValue
                     return Movie(title: title, overview: overview, releaseDate: releaseDate, posterImagePath: posterImagePath, backdropImagePath: backdropImagePath, movieId: movieId)
                 }
+                
                 self.filteredMovies = self.movies
                 
                 self.tableView.reloadData()

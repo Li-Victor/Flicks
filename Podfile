@@ -6,6 +6,7 @@ target 'Flix' do
   use_frameworks!
   pod 'AlamofireImage', '~> 3.3'
   pod 'PKHUD', '~> 5.0'
+  pod 'SwiftyJSON', '~> 4.0'
   # Pods for Flix
 
 end

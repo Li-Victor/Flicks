@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import SwiftyJSON
 
 class TrailerController: UIViewController, WKUIDelegate {
     
@@ -28,11 +29,8 @@ class TrailerController: UIViewController, WKUIDelegate {
             if let error = error {
                 print(error.localizedDescription)
             } else if let data = data {
-                let dictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-
-                let results = dictionary["results"] as! [[String: Any]]
-
-                let key = results[0]["key"] as! String
+                let movieVideos = JSON(data)
+                let key = movieVideos["results", 0, "key"].stringValue
                 let youtubeURL = URL(string: "https://www.youtube.com/watch?v=\(key)")!
                 let youtubeRequest = URLRequest(url: youtubeURL)
                 self.webView.load(youtubeRequest)
