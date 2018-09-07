@@ -38,7 +38,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     func fetchMovies() {
         PKHUD.sharedHUD.contentView = PKHUDProgressView()
         PKHUD.sharedHUD.show(onView: tableView)
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=" + APIKeys.MOVIE_DATABASE.rawValue)!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(APIKeys.MOVIE_DATABASE.rawValue)")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request) {
@@ -58,7 +58,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
                     let releaseDate = $0["release_date"] as! String
                     let posterImagePath = $0["poster_path"] as! String
                     let backdropImagePath = $0["backdrop_path"] as! String
-                    return Movie(title: title, overview: overview, releaseDate: releaseDate, posterImagePath: posterImagePath, backdropImagePath: backdropImagePath)
+                    let movieId = $0["id"] as! Int
+                    return Movie(title: title, overview: overview, releaseDate: releaseDate, posterImagePath: posterImagePath, backdropImagePath: backdropImagePath, movieId: movieId)
                 }
                 self.filteredMovies = self.movies
                 

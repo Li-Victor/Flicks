@@ -14,4 +14,5 @@ struct Movie {
     let releaseDate: String
     let posterImagePath: String
     let backdropImagePath: String
+    let movieId: Int
 }

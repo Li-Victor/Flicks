@@ -65,7 +65,8 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
                     let releaseDate = $0["release_date"] as! String
                     let posterImagePath = $0["poster_path"] as! String
                     let backdropImagePath = $0["backdrop_path"] as! String
-                    return Movie(title: title, overview: overview, releaseDate: releaseDate, posterImagePath: posterImagePath, backdropImagePath: backdropImagePath)
+                    let movieId = $0["id"] as! Int
+                    return Movie(title: title, overview: overview, releaseDate: releaseDate, posterImagePath: posterImagePath, backdropImagePath: backdropImagePath, movieId: movieId)
                 }
                 
                 self.collectionView.reloadData()

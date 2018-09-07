@@ -7,16 +7,27 @@
 //
 
 import UIKit
+import WebKit
 
-class TrailerController: UIViewController {
+class TrailerController: UIViewController, WKUIDelegate {
     
-    @IBOutlet weak var dataLabel: UILabel!
+    @IBOutlet weak var webView: WKWebView!
     
-    var youtubeURL: String?
+    var youtubeKey: String!
+    
+    override func loadView() {
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        webView.uiDelegate = self
+        view = webView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataLabel.text = youtubeURL
-        // Do any additional setup after loading the view.
+        print("https://www.youtube.com/watch?v=\(youtubeKey)")
+        let youtubeURL = URL(string: "https://www.youtube.com/watch?v=MFWF9dU5Zc0")!
+        let youtubeRequest = URLRequest(url: youtubeURL)
+        webView.load(youtubeRequest)
     }
 
 }
