@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Flicks
+//  Flix
 //
 //  Created by Victor Li on 8/23/18.
 //  Copyright © 2018 Victor Li. All rights reserved.
