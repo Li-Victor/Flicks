@@ -69,6 +69,7 @@
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="41n-AX-TgJ" secondAttribute="bottom" constant="8" id="CM7-sw-YBF"/>
                                                 <constraint firstItem="pKd-U4-qJ8" firstAttribute="top" secondItem="0BF-CF-l7V" secondAttribute="top" constant="8" id="ck9-tR-rEN"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="41n-AX-TgJ" secondAttribute="trailing" constant="8" id="x0u-cW-4VK"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pKd-U4-qJ8" secondAttribute="bottom" constant="8" id="xSL-hv-9Lc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.0" green="0.46381574869155884" blue="0.77111738920211792" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
