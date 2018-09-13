@@ -14,8 +14,10 @@ import SwiftyJSON
 class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var searchBar: UISearchBar!
     
+    @IBOutlet weak var navItem: UINavigationItem!
+    
+    var searchBar: UISearchBar!
     private var movies: [Movie] = []
     private var filteredMovies: [Movie] = []
     private var refreshControl: UIRefreshControl!
@@ -26,12 +28,19 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 200
         
+        searchBar = UISearchBar()
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Filter By Name"
+        searchBar.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        navItem.titleView = searchBar
+        searchBar.delegate = self
+        
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(NowPlayingViewController.didPullToRefresh(_:)), for: .valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
         
         self.tableView.dataSource = self
-        self.searchBar.delegate = self
+        
         fetchMovies()
     }
     
@@ -127,6 +136,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
         self.filteredMovies = searchText.isEmpty ? self.movies : self.movies.filter {
             let title = $0.title
             return title.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
