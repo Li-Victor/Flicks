@@ -31,7 +31,6 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         searchBar = UISearchBar()
         searchBar.sizeToFit()
         searchBar.placeholder = "Filter By Name"
-        searchBar.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         navItem.titleView = searchBar
         searchBar.delegate = self
         
