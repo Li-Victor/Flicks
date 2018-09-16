@@ -185,28 +185,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OpN-NP-VTD">
-                                <rect key="frame" x="0.0" y="58" width="375" height="609"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OpN-NP-VTD">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z26-BK-ESs">
-                                <rect key="frame" x="16" y="20" width="34" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <action selector="goBack:" destination="SZZ-fn-pKI" eventType="touchUpInside" id="aLQ-lW-rft"/>
-                                </connections>
-                            </button>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4AY-46-71y">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem id="49E-YA-D61"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4AY-46-71y" firstAttribute="top" secondItem="vu4-19-VQj" secondAttribute="top" id="50N-JD-kuj"/>
+                            <constraint firstItem="OpN-NP-VTD" firstAttribute="leading" secondItem="4AY-46-71y" secondAttribute="leading" id="JuU-0j-n41"/>
+                            <constraint firstItem="4AY-46-71y" firstAttribute="leading" secondItem="vu4-19-VQj" secondAttribute="leading" id="OUa-Td-Hvs"/>
+                            <constraint firstItem="OpN-NP-VTD" firstAttribute="bottom" secondItem="vu4-19-VQj" secondAttribute="bottom" id="Sd5-sj-Dpv"/>
+                            <constraint firstItem="OpN-NP-VTD" firstAttribute="top" secondItem="4AY-46-71y" secondAttribute="bottom" id="aCk-oh-hRG"/>
+                            <constraint firstItem="OpN-NP-VTD" firstAttribute="trailing" secondItem="vu4-19-VQj" secondAttribute="trailing" id="yH4-aG-mJf"/>
+                            <constraint firstItem="4AY-46-71y" firstAttribute="trailing" secondItem="vu4-19-VQj" secondAttribute="trailing" id="z72-t0-dqa"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vu4-19-VQj"/>
                     </view>
                     <connections>
+                        <outlet property="navItem" destination="49E-YA-D61" id="d4v-9F-GB7"/>
                         <outlet property="webView" destination="OpN-NP-VTD" id="p2I-n1-LNn"/>
                     </connections>
                 </viewController>
@@ -340,6 +347,6 @@
         <image name="superhero_tabbar_item" width="21" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4Gj-ap-dxR"/>
+        <segue reference="P0h-3a-lvo"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -12,12 +12,15 @@ import SwiftyJSON
 
 class TrailerController: UIViewController, WKUIDelegate {
     
+    @IBOutlet weak var navItem: UINavigationItem!
     @IBOutlet private weak var webView: WKWebView!
     
     var movieID: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navItem.leftBarButtonItem =  UIBarButtonItem(title: "Back", style: .plain, target: nil, action: #selector(TrailerController.goBack(_:)))
         
         let url = URL(string: "https://api.themoviedb.org/3/movie/\(movieID!)/videos?api_key=\(APIKeys.MOVIE_DATABASE.rawValue)")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
@@ -39,7 +42,7 @@ class TrailerController: UIViewController, WKUIDelegate {
         task.resume()
     }
 
-    @IBAction func goBack(_ sender: UIButton) {
+    @objc func goBack(_ navLeftBar: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
 }
