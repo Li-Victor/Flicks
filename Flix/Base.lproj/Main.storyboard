@@ -260,9 +260,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="REe-6y-o4y">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="REe-6y-o4y">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="u7j-1I-1a9">
                                     <size key="itemSize" width="125" height="191"/>
@@ -278,12 +277,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="125" height="191"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9hh-Cf-ycp">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9hh-Cf-ycp">
                                                     <rect key="frame" x="0.0" y="0.0" width="125" height="191"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="9hh-Cf-ycp" secondAttribute="trailing" id="5TL-93-kWQ"/>
+                                            <constraint firstItem="9hh-Cf-ycp" firstAttribute="leading" secondItem="0Wi-Tc-MB5" secondAttribute="leading" id="Wef-iB-Dbf"/>
+                                            <constraint firstItem="9hh-Cf-ycp" firstAttribute="top" secondItem="0Wi-Tc-MB5" secondAttribute="top" id="hqX-EW-cR9"/>
+                                            <constraint firstAttribute="bottom" secondItem="9hh-Cf-ycp" secondAttribute="bottom" id="r1B-a1-Nlz"/>
+                                        </constraints>
                                         <size key="customSize" width="125" height="191"/>
                                         <connections>
                                             <outlet property="posterImageView" destination="9hh-Cf-ycp" id="Yzr-UY-Okl"/>
@@ -294,6 +298,12 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="REe-6y-o4y" firstAttribute="top" secondItem="uWK-zE-o3m" secondAttribute="top" id="HU8-zz-L67"/>
+                            <constraint firstItem="REe-6y-o4y" firstAttribute="trailing" secondItem="uWK-zE-o3m" secondAttribute="trailing" id="ICR-Li-Qi7"/>
+                            <constraint firstItem="REe-6y-o4y" firstAttribute="leading" secondItem="uWK-zE-o3m" secondAttribute="leading" id="QTm-c2-PYW"/>
+                            <constraint firstItem="REe-6y-o4y" firstAttribute="bottom" secondItem="uWK-zE-o3m" secondAttribute="bottom" id="fcr-dL-pG3"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="uWK-zE-o3m"/>
                     </view>
                     <navigationItem key="navigationItem" title="Superhero" id="WWi-6f-b8V"/>
@@ -330,6 +340,6 @@
         <image name="superhero_tabbar_item" width="21" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="P0h-3a-lvo"/>
+        <segue reference="4Gj-ap-dxR"/>
     </inferredMetricsTieBreakers>
 </document>
