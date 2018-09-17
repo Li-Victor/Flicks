@@ -9,7 +9,7 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
+    
     @IBOutlet private weak var backDropImageView: UIImageView!
     @IBOutlet private weak var posterImageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
@@ -20,40 +20,28 @@ class DetailViewController: UIViewController {
         performSegue(withIdentifier: "SegueToVideo", sender: nil)
     }
     
-    var movie: Movie?
+    var movie: Movie!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if let movie = movie {
-            titleLabel.text = movie.title
-            releaseDateLabel.text = movie.releaseDate
-            overviewLabel.text = movie.overview
-            let backdropPathString = movie.backdropImagePath
-            
-            let posterPathString = movie.posterImagePath
-            
-            let baseURLString = "https://image.tmdb.org/t/p/w500"
-            
-            let backdropURL = URL(string: baseURLString + backdropPathString)!
-            backDropImageView.af_setImage(withURL: backdropURL)
-            
-            let posterPathURL = URL(string: baseURLString + posterPathString)!
-            posterImageView.af_setImage(withURL: posterPathURL)
-        }
+        
+        titleLabel.text = movie.title
+        releaseDateLabel.text = movie.releaseDate
+        overviewLabel.text = movie.overview
+        
+        backDropImageView.af_setImage(withURL: movie.backdropImageURL)
+        posterImageView.af_setImage(withURL: movie.highResPosterURL)
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         let trailerController = segue.destination as! TrailerController
-        trailerController.movieID = movie!.movieId
-        
+        trailerController.movieID = movie.movieId
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
 }

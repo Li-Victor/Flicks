@@ -15,7 +15,11 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
     
     @IBOutlet private weak var collectionView: UICollectionView!
     
-    private var movies: [Movie] = []
+    private var movies: [Movie] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     private var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
@@ -23,10 +27,12 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
         
         collectionView.dataSource = self
         
+        // adding refresh control to collection view
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(didPullToRefresh(_:)), for: .valueChanged)
         collectionView.insertSubview(refreshControl, at: 0)
         
+        // calculating spacing between each cell
         let layout  = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = layout.minimumInteritemSpacing
@@ -57,19 +63,11 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
                 self.displayError(error)
             } else if let data = data {
                 PKHUD.sharedHUD.hide(afterDelay: 0.10)
-                let allMovieInfo = JSON(data)
                 
-                self.movies = allMovieInfo["results"].arrayValue.map {
-                    let title = $0["title"].stringValue
-                    let overview = $0["overview"].stringValue
-                    let releaseDate = $0["release_date"].stringValue
-                    let posterImagePath = $0["poster_path"].stringValue
-                    let backdropImagePath = $0["backdrop_path"].stringValue
-                    let movieId = $0["id"].intValue
-                    return Movie(title: title, overview: overview, releaseDate: releaseDate, posterImagePath: posterImagePath, backdropImagePath: backdropImagePath, movieId: movieId)
+                self.movies = JSON(data)["results"].arrayValue.map {
+                    Movie.parseToMovie(json: $0)
                 }
                 
-                self.collectionView.reloadData()
                 self.refreshControl.endRefreshing()
             }
         }
@@ -94,25 +92,8 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PosterCell", for: indexPath) as! PosterCell
         let movie = movies[indexPath.item]
-        let posterPathString = movie.posterImagePath
+        cell.movie = movie
         
-        let lowResURLString = "https://image.tmdb.org/t/p/w45"
-        let lowResPosterURL = URL(string: lowResURLString + posterPathString)!
-        
-        let highResURLString = "https://image.tmdb.org/t/p/original"
-        let highResPosterURL = URL(string: highResURLString + posterPathString)!
-        
-        let placeholderImage = UIImage(named: "iconmonstr-video")!
-        
-        let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
-            size: cell.posterImageView.frame.size,
-            radius: 0.0
-        )
-        
-        cell.posterImageView.af_setImage(withURL: lowResPosterURL, placeholderImage: placeholderImage, filter: filter, imageTransition: .crossDissolve(0.2), completion: {(response) in
-            
-            cell.posterImageView.af_setImage(withURL: highResPosterURL, filter: filter, imageTransition: .crossDissolve(0.2))
-        })
         return cell
     }
     

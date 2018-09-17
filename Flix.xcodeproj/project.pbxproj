@@ -89,6 +89,7 @@
 			children = (
 				5761F34B213E5DED001C5FCB /* Views */,
 				5761F34C213E5E0B001C5FCB /* ViewControllers */,
+				577EF9EC214FFF4B0061BDF0 /* Models */,
 				574BDEA6212FB6920086AD05 /* AppDelegate.swift */,
 				574BDEAA212FB6920086AD05 /* Main.storyboard */,
 				574BDEAD212FB6940086AD05 /* Assets.xcassets */,
@@ -96,7 +97,6 @@
 				574BDEB2212FB6940086AD05 /* Info.plist */,
 				57CAEC65212FD26E00ADFB4E /* APIKeysSample.swift */,
 				57677DAF2136FB4A00E47C21 /* APIKeys.swift */,
-				572ED558213F1E5E00177CBB /* Movie.swift */,
 			);
 			path = Flix;
 			sourceTree = "<group>";
@@ -119,6 +119,14 @@
 				57130F4D2140B7A200679754 /* TrailerController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		577EF9EC214FFF4B0061BDF0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				572ED558213F1E5E00177CBB /* Movie.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		9BBD08C0EA5DC8A0183E1B9A /* Frameworks */ = {

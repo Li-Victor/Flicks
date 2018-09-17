@@ -17,28 +17,32 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     
     @IBOutlet weak var navItem: UINavigationItem!
     
-    var searchBar: UISearchBar!
+    private var searchBar: UISearchBar!
     private var movies: [Movie] = []
-    private var filteredMovies: [Movie] = []
+    private var filteredMovies: [Movie] = [] {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
     private var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 200
         
-        searchBar = UISearchBar()
-        searchBar.sizeToFit()
-        searchBar.placeholder = "Filter By Name"
-        navItem.titleView = searchBar
-        searchBar.delegate = self
-        
+        // add refresh control on top of tableView
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(NowPlayingViewController.didPullToRefresh(_:)), for: .valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
         
-        self.tableView.dataSource = self
+        searchBar = UISearchBar()
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Filter By Name"
+        searchBar.delegate = self
+        navItem.titleView = searchBar
         
         fetchMovies()
     }
@@ -61,22 +65,10 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
                 self.displayError(error)
             } else if let data = data {
                 
-                let allMovieInfo = JSON(data)
-                
                 PKHUD.sharedHUD.hide(afterDelay: 0.10)
-                self.movies = allMovieInfo["results"].arrayValue.map {
-                    let title = $0["title"].stringValue
-                    let overview = $0["overview"].stringValue
-                    let releaseDate = $0["release_date"].stringValue
-                    let posterImagePath = $0["poster_path"].stringValue
-                    let backdropImagePath = $0["backdrop_path"].stringValue
-                    let movieId = $0["id"].intValue
-                    return Movie(title: title, overview: overview, releaseDate: releaseDate, posterImagePath: posterImagePath, backdropImagePath: backdropImagePath, movieId: movieId)
-                }
-                
+                self.movies = JSON(data)["results"].arrayValue.map { Movie.parseToMovie(json: $0) }
                 self.filteredMovies = self.movies
                 
-                self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
             }
         }
@@ -100,48 +92,21 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
-        
-        let movie = filteredMovies[indexPath.row]
-        let title = movie.title
-        let overview = movie.overview
-        let posterPath = movie.posterImagePath
-        
-        cell.titleLabel.text = title
-        cell.overviewLabel.text = overview
-        
-        let lowResURLString = "https://image.tmdb.org/t/p/w45"
-        let lowResPosterURL = URL(string: lowResURLString + posterPath)!
-        
-        let highResURLString = "https://image.tmdb.org/t/p/original"
-        let highResPosterURL = URL(string: highResURLString + posterPath)!
-        
-        let placeholderImage = UIImage(named: "iconmonstr-video")!
-        
-        let filter = AspectScaledToFillSizeWithRoundedCornersFilter(
-            size: cell.posterImageView.frame.size,
-            radius: 0.0
-        )
-        
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor.black
-        cell.selectedBackgroundView = backgroundView
-        
-        cell.posterImageView.af_setImage(withURL: lowResPosterURL, placeholderImage: placeholderImage, filter: filter, imageTransition: .crossDissolve(0.2),
-                                         completion: { (response) in
-                                            cell.posterImageView.af_setImage(withURL: highResPosterURL, filter: filter, imageTransition: .crossDissolve(0.2))
-        })
+
+        cell.movie = filteredMovies[indexPath.row]
         
         return cell
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-
-        self.filteredMovies = searchText.isEmpty ? self.movies : self.movies.filter {
+        
+        filteredMovies = searchText.isEmpty ? self.movies : self.movies.filter {
             let title = $0.title
             return title.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
         }
-        self.tableView.reloadData()
-        if self.filteredMovies.count > 0 {
+        
+        // move tableView to the top of the movie list
+        if filteredMovies.count > 0 {
             tableView.scrollToRow(at: IndexPath(indexes: [0, 0]), at: .bottom, animated: true)
         }
         
