@@ -18,7 +18,7 @@ struct Movie {
     let highResPosterURL: URL
     let backdropImageURL: URL
     
-    static func parseToMovie(json movieJSON: JSON) -> Movie {
+    private static func parseToMovie(json movieJSON: JSON) -> Movie {
         let title = movieJSON["title"].stringValue
         let overview = movieJSON["overview"].stringValue
         let releaseDate = movieJSON["release_date"].stringValue
@@ -36,5 +36,9 @@ struct Movie {
         let backDropImageURL = URL(string: baseURLString + backdropImagePath)!
         
         return Movie(title: title, overview: overview, releaseDate: releaseDate, movieId: movieId, lowResPosterURL: lowResPosterURL, highResPosterURL: highResPosterURL, backdropImageURL: backDropImageURL)
+    }
+    
+    static func getMovies(_ json: [JSON]) -> [Movie] {
+        return json.map { Movie.parseToMovie(json: $0) }
     }
 }

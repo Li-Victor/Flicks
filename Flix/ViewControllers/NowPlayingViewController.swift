@@ -9,7 +9,6 @@
 import UIKit
 import AlamofireImage
 import PKHUD
-import SwiftyJSON
 
 class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
     
@@ -21,7 +20,9 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     private var movies: [Movie] = []
     private var filteredMovies: [Movie] = [] {
         didSet {
+            PKHUD.sharedHUD.hide(afterDelay: 0.10)
             self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
         }
     }
     private var refreshControl: UIRefreshControl!
@@ -54,25 +55,16 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     private func fetchMovies() {
         PKHUD.sharedHUD.contentView = PKHUDProgressView()
         PKHUD.sharedHUD.show(onView: tableView)
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(APIKeys.MOVIE_DATABASE.rawValue)")!
-        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        let task = session.dataTask(with: request) {
-            (data, response, error) in
-            // This will run when the network request returns
+        
+        MovieApiManager.shared.nowPlayingMovies { (movies: [Movie]?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
                 self.displayError(error)
-            } else if let data = data {
-                
-                PKHUD.sharedHUD.hide(afterDelay: 0.10)
-                self.movies = JSON(data)["results"].arrayValue.map { Movie.parseToMovie(json: $0) }
+            } else if let movies = movies {
+                self.movies = movies
                 self.filteredMovies = self.movies
-                
-                self.refreshControl.endRefreshing()
             }
         }
-        task.resume()
     }
     
     private func displayError(_ error: Error) {

@@ -9,7 +9,6 @@
 import UIKit
 import AlamofireImage
 import PKHUD
-import SwiftyJSON
 
 class SuperheroViewController: UIViewController, UICollectionViewDataSource {
     
@@ -17,7 +16,9 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
     
     private var movies: [Movie] = [] {
         didSet {
+            PKHUD.sharedHUD.hide(afterDelay: 0.10)
             collectionView.reloadData()
+            refreshControl.endRefreshing()
         }
     }
     private var refreshControl: UIRefreshControl!
@@ -52,26 +53,15 @@ class SuperheroViewController: UIViewController, UICollectionViewDataSource {
         PKHUD.sharedHUD.contentView = PKHUDProgressView()
         PKHUD.sharedHUD.show(onView: collectionView)
         let wonderWomanID = 297762
-        let url = URL(string: "https://api.themoviedb.org/3/movie/\(wonderWomanID)/similar?api_key=\(APIKeys.MOVIE_DATABASE.rawValue)")!
-        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        let task = session.dataTask(with: request) {
-            (data, response, error) in
-            // This will run when the network request returns
+        
+        MovieApiManager.shared.similarMovies(movieId: wonderWomanID) { (movies: [Movie]?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
                 self.displayError(error)
-            } else if let data = data {
-                PKHUD.sharedHUD.hide(afterDelay: 0.10)
-                
-                self.movies = JSON(data)["results"].arrayValue.map {
-                    Movie.parseToMovie(json: $0)
-                }
-                
-                self.refreshControl.endRefreshing()
+            } else if let movies = movies {
+                self.movies = movies
             }
         }
-        task.resume()
     }
     
     private func displayError(_ error: Error) {
