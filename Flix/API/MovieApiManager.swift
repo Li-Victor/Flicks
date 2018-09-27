@@ -48,6 +48,11 @@ struct MovieApiManager {
         task.resume()
     }
     
+    func popularMovies(completion: @escaping ([Movie]?, Error?) -> ()) {
+        let url = URL(string: MovieApiManager.baseURL + "popular?api_key=\(MovieApiManager.apiKey)")!
+        makeRequest(from: url, completion: completion)
+    }
+    
     private func makeRequest(from url: URL, completion: @escaping ([Movie]?, Error?) -> ()) {
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let task = session.dataTask(with: request) { (data, response, error) in
